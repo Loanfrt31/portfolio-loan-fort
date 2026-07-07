@@ -1,11 +1,16 @@
+import ContactForm from "../components/ContactForm.jsx";
+import Reveal from "../components/Reveal.jsx";
+
 function Contact({ t }) {
   const contact = t.contact;
 
   return (
     <div className="page page-contact">
-      <div className="contact-card">
+      <Reveal as="div" className="contact-card">
         <h1>{contact.title}</h1>
         <p>{contact.text}</p>
+
+        <ContactForm t={t} />
 
         <div className="contact-methods">
           <a className="contact-method" href={`mailto:${contact.email}`}>
@@ -25,7 +30,11 @@ function Contact({ t }) {
         </div>
 
         <span className="contact-location">{contact.location}</span>
-      </div>
+
+        <a className="btn btn-outline contact-cv" href="/cv-loan-fort.pdf" download>
+          {contact.cvDownload}
+        </a>
+      </Reveal>
     </div>
   );
 }

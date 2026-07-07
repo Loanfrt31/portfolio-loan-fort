@@ -1,3 +1,5 @@
+import Reveal from "../components/Reveal.jsx";
+
 function Projects({ t, setPage }) {
   const projects = t.projects;
   const p = t.projectAustralia;
@@ -10,7 +12,8 @@ function Projects({ t, setPage }) {
         <p className="tagline">{projects.tagline}</p>
       </header>
 
-      <button
+      <Reveal
+        as="button"
         type="button"
         className="featured-project-card"
         onClick={() => setPage("projectAustralia")}
@@ -25,12 +28,17 @@ function Projects({ t, setPage }) {
         <span className="featured-project-cta">
           {p.ctaView} <span className="cta-arrow" aria-hidden="true">→</span>
         </span>
-      </button>
+      </Reveal>
 
       {hasItems && (
         <div className="projects-grid">
-          {projects.items.map((project) => (
-            <article className="project-card" key={project.name}>
+          {projects.items.map((project, index) => (
+            <Reveal
+              as="article"
+              className="project-card"
+              delay={index * 80}
+              key={project.name}
+            >
               <h3>{project.name}</h3>
               <p>{project.desc}</p>
               <ul className="project-stack">
@@ -38,7 +46,7 @@ function Projects({ t, setPage }) {
                   <li key={tech}>{tech}</li>
                 ))}
               </ul>
-            </article>
+            </Reveal>
           ))}
         </div>
       )}

@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import FigureRow from "../components/FigureRow.jsx";
 import Tabs from "../components/Tabs.jsx";
 import TabsCarousel from "../components/TabsCarousel.jsx";
+import Reveal from "../components/Reveal.jsx";
 
 // Seuils du swipe tactile : au-delà de 50px horizontaux, et nettement
 // plus horizontal que vertical, pour ne jamais gêner le scroll de la page.
@@ -11,15 +12,20 @@ const SWIPE_DIRECTION_RATIO = 1.5;
 function ResumeGroup({ entries }) {
   return (
     <div className="resume-entries">
-      {entries.map((entry) => (
-        <div className="resume-entry" key={entry.date + entry.title}>
+      {entries.map((entry, index) => (
+        <Reveal
+          as="div"
+          className="resume-entry"
+          delay={index * 80}
+          key={entry.date + entry.title}
+        >
           <span className="resume-date">{entry.date}</span>
           <div className="resume-content">
             <h3 className="resume-title">{entry.title}</h3>
             {entry.place && <p className="resume-place">{entry.place}</p>}
             {entry.desc && <p className="resume-desc">{entry.desc}</p>}
           </div>
-        </div>
+        </Reveal>
       ))}
     </div>
   );

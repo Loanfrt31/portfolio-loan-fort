@@ -1,6 +1,8 @@
 import Breadcrumb from "../components/Breadcrumb.jsx";
 import AustraliaMap from "../components/AustraliaMap.jsx";
 import MilestoneTrail from "../components/MilestoneTrail.jsx";
+import WorldClocks from "../components/WorldClocks.jsx";
+import Reveal from "../components/Reveal.jsx";
 
 function ProjectAustralia({ t, setPage }) {
   const p = t.projectAustralia;
@@ -24,7 +26,7 @@ function ProjectAustralia({ t, setPage }) {
       <p className="project-subtitle">{p.subtitle}</p>
 
       <div className="project-grid">
-        <div className="project-main">
+        <Reveal as="div" className="project-main">
           <p className="project-story">{p.story}</p>
           <div className="tags-row">
             {p.tags.map((tag) => (
@@ -33,15 +35,21 @@ function ProjectAustralia({ t, setPage }) {
               </span>
             ))}
           </div>
-        </div>
+        </Reveal>
 
-        <div className="project-side">
+        <Reveal as="div" className="project-side" delay={80}>
           <AustraliaMap label={p.mapLabel} />
           <p className="map-caption">{p.mapCaption}</p>
-        </div>
+          <WorldClocks
+            originLabel={p.clockOriginLabel}
+            destinationLabel={p.clockDestinationLabel}
+          />
+        </Reveal>
       </div>
 
-      <MilestoneTrail milestones={p.milestones} />
+      <Reveal as="div">
+        <MilestoneTrail milestones={p.milestones} />
+      </Reveal>
     </div>
   );
 }

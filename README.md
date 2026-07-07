@@ -28,18 +28,29 @@ npm run preview   # pour prévisualiser le résultat du build en local
 
 ```
 src/
-  content.js          → TOUS les textes du site (français + anglais)
-  App.jsx             → page active, langue active, navigation
+  content.js          → TOUS les textes du site (français + anglais) + constantes
+                         (DEPARTURE_DATE, FORMSPREE_FORM_ID)
+  App.jsx             → page active, langue active, navigation, préloader
   App.css             → tous les styles
   index.css           → variables de couleur, polices, réinitialisation
+  hooks/
+    useReveal.js         → apparition au scroll (IntersectionObserver, une fois)
   components/
-    Nav.jsx            → barre de navigation + menu hamburger mobile
-    LangToggle.jsx      → sélecteur de langue FR/EN
-    Monogram.jsx         → la "Plaque monogramme" de la page d'accueil
-    Countdown.jsx        → le compte à rebours avant le départ en Australie
-    FigureRow.jsx         → ligne "valeur — précision" (chiffres clés, compétences, langues)
+    Nav.jsx               → barre de navigation + menu hamburger mobile
+    LangToggle.jsx         → sélecteur de langue FR/EN
+    Monogram.jsx            → la "Plaque monogramme" de la page d'accueil
+    Countdown.jsx            → le compte à rebours avant le départ en Australie
+    FigureRow.jsx             → ligne "valeur — précision" (chiffres clés, compétences, langues)
+    Tabs.jsx / TabsCarousel.jsx → onglets À propos (rangée desktop / carousel mobile)
+    Breadcrumb.jsx            → fil d'ariane de la page Australie
+    AustraliaMap.jsx           → croquis SVG des côtes de l'Australie
+    MilestoneTrail.jsx          → frise des jalons du projet Australie
+    WorldClocks.jsx              → horloges Toulouse / Sydney en temps réel
+    ContactForm.jsx               → formulaire de contact (Formspree)
+    Reveal.jsx                     → enveloppe pour les apparitions au scroll
+    Preloader.jsx                   → écran d'entrée monogramme (premier chargement)
   pages/
-    Home.jsx, About.jsx, Projects.jsx, Contact.jsx
+    Home.jsx, About.jsx, Projects.jsx, Contact.jsx, ProjectAustralia.jsx
 ```
 
 ## Modifier un texte
@@ -102,6 +113,42 @@ projects: {
 ```
 
 N'oubliez pas d'ajouter la même entrée (traduite) dans `content.en.projects.items`.
+
+## Activer le formulaire de contact (Formspree)
+
+Le formulaire de la page Contact envoie ses messages via
+[Formspree](https://formspree.io) — aucun backend à héberger.
+
+1. Créez un compte gratuit sur [formspree.io](https://formspree.io).
+2. Créez un nouveau formulaire.
+3. Copiez son identifiant (visible dans l'URL du formulaire ou son tableau
+   de bord) et collez-le dans la constante `FORMSPREE_FORM_ID`, tout en haut
+   de `src/content.js` :
+
+   ```js
+   export const FORMSPREE_FORM_ID = "votre-id-ici";
+   ```
+
+Tant que cette constante est vide, l'envoi échouera et le formulaire
+affichera son message d'erreur invitant à utiliser l'email direct.
+
+## Ajouter le CV téléchargeable
+
+Le bouton "Télécharger mon CV" de la page Contact pointe vers
+`/cv-loan-fort.pdf`. Déposez votre CV au format PDF dans le dossier
+`public/` sous le nom **`cv-loan-fort.pdf`** pour l'activer.
+
+## Image de partage (aperçu réseaux sociaux)
+
+`public/og-image.png` (1200×630) est utilisée par les balises Open Graph et
+Twitter Card définies dans `index.html`. Pour la régénérer ou la modifier,
+éditez son contenu (texte, couleurs) puis exportez-la à nouveau en PNG aux
+mêmes dimensions — par exemple par une capture d'écran d'une page HTML aux
+couleurs du site, ou avec l'outil d'export de votre choix.
+
+Avant la mise en ligne, remplacez aussi la valeur de la balise `og:url` dans
+`index.html` (juste en dessous du commentaire "remplacer par l'URL de
+production après déploiement") par l'URL réelle du site déployé.
 
 ## Déployer gratuitement
 

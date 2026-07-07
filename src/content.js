@@ -8,6 +8,11 @@
 // home.countdown.subtitle (fr/en) ci-dessous si le mois change.
 export const DEPARTURE_DATE = new Date("2026-10-01T00:00:00");
 
+// Identifiant du formulaire Formspree utilisé par le formulaire de contact.
+// Créer un compte gratuit sur formspree.io, créer un formulaire, coller son
+// ID ici (voir le README pour la marche à suivre complète).
+export const FORMSPREE_FORM_ID = "";
+
 export const content = {
   fr: {
     meta: {
@@ -174,6 +179,8 @@ export const content = {
       tags: ["Visa WHV", "Budget", "Anglais B2 → C1", "Autonomie"],
       mapLabel: "Carte des côtes de l'Australie",
       mapCaption: "TOULOUSE → AUSTRALIE · ≈ 17 000 KM",
+      clockOriginLabel: "TOULOUSE",
+      clockDestinationLabel: "SYDNEY",
       ctaView: "Voir le projet",
       emptyNote:
         "D'autres projets viendront s'écrire ici — certains depuis l'Australie.",
@@ -187,6 +194,16 @@ export const content = {
       linkedinLabel: "LinkedIn — Loan Fort",
       linkedinUrl: "https://www.linkedin.com/in/loan-fort",
       location: "Toulouse, France",
+      cvDownload: "Télécharger mon CV",
+      form: {
+        nameLabel: "Nom",
+        emailLabel: "Email",
+        messageLabel: "Message",
+        submit: "Envoyer",
+        sending: "Envoi…",
+        success: "Message envoyé — je vous réponds vite.",
+        error: "Une erreur est survenue — utilisez plutôt l'email ci-dessous.",
+      },
     },
     footer: {
       text: (year) => `Conçu et codé par Loan Fort · Toulouse · ${year}`,
@@ -351,6 +368,8 @@ export const content = {
       tags: ["WHV Visa", "Budget", "English B2 → C1", "Independence"],
       mapLabel: "Map of Australia's coastline",
       mapCaption: "TOULOUSE → AUSTRALIA · ≈ 17,000 KM",
+      clockOriginLabel: "TOULOUSE",
+      clockDestinationLabel: "SYDNEY",
       ctaView: "View the project",
       emptyNote:
         "More projects will be written here — some of them from Australia.",
@@ -364,6 +383,16 @@ export const content = {
       linkedinLabel: "LinkedIn — Loan Fort",
       linkedinUrl: "https://www.linkedin.com/in/loan-fort",
       location: "Toulouse, France",
+      cvDownload: "Download my CV — French",
+      form: {
+        nameLabel: "Name",
+        emailLabel: "Email",
+        messageLabel: "Message",
+        submit: "Send",
+        sending: "Sending…",
+        success: "Message sent — I'll reply soon.",
+        error: "Something went wrong — please use the email below.",
+      },
     },
     footer: {
       text: (year) => `Designed and coded by Loan Fort · Toulouse · ${year}`,

@@ -1,5 +1,6 @@
 import Monogram from "../components/Monogram.jsx";
 import Countdown from "../components/Countdown.jsx";
+import Reveal from "../components/Reveal.jsx";
 
 function Home({ t, setPage }) {
   const home = t.home;
@@ -38,7 +39,7 @@ function Home({ t, setPage }) {
         </div>
       </section>
 
-      <section className="project-teaser">
+      <Reveal as="section" className="project-teaser">
         <span className="project-teaser-eyebrow">
           <span className="project-teaser-dot" aria-hidden="true" />
           {home.project.eyebrow}
@@ -56,7 +57,7 @@ function Home({ t, setPage }) {
             {home.project.cta}
           </button>
         </div>
-      </section>
+      </Reveal>
     </div>
   );
 }
