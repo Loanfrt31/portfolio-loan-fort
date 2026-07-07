@@ -1,4 +1,3 @@
-import ContactForm from "../components/ContactForm.jsx";
 import Reveal from "../components/Reveal.jsx";
 
 function Contact({ t }) {
@@ -9,8 +8,6 @@ function Contact({ t }) {
       <Reveal as="div" className="contact-card">
         <h1>{contact.title}</h1>
         <p>{contact.text}</p>
-
-        <ContactForm t={t} />
 
         <div className="contact-methods">
           <a className="contact-method" href={`mailto:${contact.email}`}>

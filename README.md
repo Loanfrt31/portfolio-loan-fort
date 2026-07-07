@@ -28,8 +28,8 @@ npm run preview   # pour prévisualiser le résultat du build en local
 
 ```
 src/
-  content.js          → TOUS les textes du site (français + anglais) + constantes
-                         (DEPARTURE_DATE, FORMSPREE_FORM_ID)
+  content.js          → TOUS les textes du site (français + anglais) + constante
+                         DEPARTURE_DATE
   App.jsx             → page active, langue active, navigation, préloader
   App.css             → tous les styles
   index.css           → variables de couleur, polices, réinitialisation
@@ -46,9 +46,8 @@ src/
     AustraliaMap.jsx           → croquis SVG des côtes de l'Australie
     MilestoneTrail.jsx          → frise des jalons du projet Australie
     WorldClocks.jsx              → horloges Toulouse / Sydney en temps réel
-    ContactForm.jsx               → formulaire de contact (Formspree)
-    Reveal.jsx                     → enveloppe pour les apparitions au scroll
-    Preloader.jsx                   → écran d'entrée monogramme (premier chargement)
+    Reveal.jsx                    → enveloppe pour les apparitions au scroll
+    Preloader.jsx                  → écran d'entrée monogramme (premier chargement)
   pages/
     Home.jsx, About.jsx, Projects.jsx, Contact.jsx, ProjectAustralia.jsx
 ```
@@ -113,24 +112,6 @@ projects: {
 ```
 
 N'oubliez pas d'ajouter la même entrée (traduite) dans `content.en.projects.items`.
-
-## Activer le formulaire de contact (Formspree)
-
-Le formulaire de la page Contact envoie ses messages via
-[Formspree](https://formspree.io) — aucun backend à héberger.
-
-1. Créez un compte gratuit sur [formspree.io](https://formspree.io).
-2. Créez un nouveau formulaire.
-3. Copiez son identifiant (visible dans l'URL du formulaire ou son tableau
-   de bord) et collez-le dans la constante `FORMSPREE_FORM_ID`, tout en haut
-   de `src/content.js` :
-
-   ```js
-   export const FORMSPREE_FORM_ID = "votre-id-ici";
-   ```
-
-Tant que cette constante est vide, l'envoi échouera et le formulaire
-affichera son message d'erreur invitant à utiliser l'email direct.
 
 ## Ajouter le CV téléchargeable
 
