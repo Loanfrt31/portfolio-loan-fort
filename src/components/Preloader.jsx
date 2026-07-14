@@ -21,8 +21,8 @@ function Preloader({ t, onFinish }) {
 
   return (
     <div className={`preloader ${exiting ? "is-exiting" : ""}`} aria-hidden="true">
-      <span className="preloader-monogram">{t.home.monogram.initials}</span>
-      <span className="preloader-number">{t.home.monogram.number}</span>
+      <span className="preloader-monogram">{t.home.portrait.initials}</span>
+      <span className="preloader-number">{t.home.portrait.number}</span>
     </div>
   );
 }

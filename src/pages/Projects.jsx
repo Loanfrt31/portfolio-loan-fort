@@ -8,7 +8,7 @@ function Projects({ t, setPage }) {
   return (
     <div className="page page-projects">
       <header className="page-header">
-        <h1>{projects.title}</h1>
+        <h1 className="cursor-halo-target">{projects.title}</h1>
         <p className="tagline">{projects.tagline}</p>
       </header>
 

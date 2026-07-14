@@ -24,21 +24,27 @@ export const content = {
     },
     home: {
       eyebrow: "Portfolio — Toulouse, France",
-      titleLine1: "Voyageur",
+      // Ajouter ou retirer des mots librement
+      rotatingWords: {
+        words: ["Voyageur", "Développeur", "Basketteur", "Polyglotte", "Explorateur"],
+        srLabel: "Voyageur, développeur, basketteur — en devenir.",
+      },
       titleLine2: "en devenir.",
       intro:
-        "Jeune bachelier de 17 ans à Toulouse — bac général, spécialités Maths et NSI. Curieux du monde avant tout : je m'envole en octobre 2026 pour une année en Australie. Entre deux, je joue au basket en Régionale 2 et je construis mes premiers projets web.",
+        "Bachelier de 17 ans, formé à Toulouse — bac général, spécialités Maths et NSI. Dix ans de basket en compétition m'ont appris la rigueur, l'esprit d'équipe et la persévérance. J'arrive en Australie en octobre 2026 avec un Working Holiday Visa, prêt à travailler.",
       ctaPrimary: "Mon histoire",
       ctaSecondary: "Me contacter",
-      monogram: {
+      portrait: {
+        // Réutilisées par le préloader (écran d'entrée monogramme)
         initials: "LF",
+        alt: "Portrait de Loan Fort",
+        line1: "LOAN FORT",
         number: "Nº 08",
-        lines: ["VOYAGEUR", "TOULOUSE, FRANCE", "EST. 2008"],
-        footerText: "Prochaine escale — ",
-        footerHighlight: "Australie",
+        availabilityPrefix: "Disponible — ",
+        availabilityHighlight: "Australie",
+        availabilitySuffix: ", octobre 2026",
       },
       countdown: {
-        title: "Départ pour l'Australie",
         labels: {
           days: "Jours",
           hours: "Heures",
@@ -49,31 +55,70 @@ export const content = {
         arrivedMessage: "L'aventure australienne a commencé.",
       },
       project: {
-        eyebrow: "Projet en cours — Nº 01",
         title: "Une année en Australie",
-        cta: "Découvrir le projet",
+        cta: "Découvrir",
+      },
+      ongoingProject: {
+        sectionTitle: "Projet en cours",
+        // Préfixe du compte à rebours en jours de la bande teaser (ex. "J-88").
+        dayCountPrefix: "J-",
+        // Affiché à la place du compte à rebours une fois la date dépassée.
+        ongoingLabel: "En cours",
+      },
+      chapters: {
+        sectionTitle: "Trois centres d'intérêt",
+        // Bouton unique sous les cartes -> onglet Centres d'intérêt de À propos
+        discoverCta: "Découvrir mes centres d'intérêt",
+        items: [
+          {
+            index: "01",
+            title: "Basket-ball",
+            summary:
+              "Dix ans de pratique, la Régionale 2 aujourd'hui — l'école de l'esprit d'équipe, de la discipline et de la persévérance.",
+          },
+          {
+            index: "02",
+            title: "Programmation",
+            summary:
+              "HTML, CSS, Python : des premiers projets construits en spécialité NSI au lycée et en autodidacte.",
+          },
+          {
+            index: "03",
+            title: "Voyages",
+            summary:
+              "Plusieurs pays découverts en famille, et un cap : une année en Australie pour apprendre le monde de près.",
+          },
+        ],
+      },
+      finalCta: {
+        eyebrow: "Contact",
+        title: "Un projet, une question ?",
+        button: "Me contacter",
       },
     },
     about: {
       title: "À propos",
-      tagline: "Le monde s'apprend en allant à sa rencontre.",
+      tagline: "La discipline du terrain, au service du travail.",
       intro:
-        "Je m'appelle Loan Fort, j'ai 17 ans et je viens d'obtenir mon bac général, spécialités Maths et NSI, au lycée Raymond Naves à Toulouse. Ce qui me définit le mieux, c'est l'envie de découvrir le monde — l'Australie en sera le premier grand chapitre. Le reste de mon temps se partage entre le basket-ball et le code.",
+        "Je m'appelle Loan Fort, j'ai 17 ans et je viens d'obtenir mon bac général, spécialités Maths et NSI, au lycée Raymond Naves à Toulouse. Dix ans de basket en compétition m'ont appris la rigueur, l'esprit d'équipe et la persévérance — des qualités que je mets au service de mes projets et de mes futurs employeurs, en France comme en Australie, où j'arrive en octobre 2026.",
       interestsTitle: "Centres d'intérêt",
       interests: [
         {
           index: "01",
           title: "Basket-ball",
+          subject: "basketball",
           text: "Je pratique le basket-ball depuis 10 ans, j'évolue actuellement en Régionale 2. Cette expérience m'a permis de développer l'esprit d'équipe, la discipline et la persévérance.",
         },
         {
           index: "02",
           title: "Programmation",
+          subject: "programming",
           text: "Je suis passionné par le développement informatique, je programme en HTML, CSS et Python à un niveau intermédiaire, compétences développées dans le cadre de la spécialité NSI au lycée ainsi que par apprentissage personnel.",
         },
         {
           index: "03",
           title: "Voyages & découverte de cultures",
+          subject: "travel",
           text: "J'aime voyager et découvrir de nouvelles cultures, ayant visité plusieurs pays avec ma famille. Aujourd'hui, je souhaite partir en Australie dans le cadre d'une année de césure afin de perfectionner mon anglais (niveau B2), gagner en autonomie et vivre une immersion culturelle enrichissante.",
         },
       ],
@@ -151,6 +196,7 @@ export const content = {
     // compacte sur la page Projets, détail complet sur la page dédiée.
     // Faire évoluer `status` au fil du projet, par ex. :
     // "Projet nº 01 — en préparation" → "Projet nº 01 — en cours — Australie"
+    // (ce même statut alimente aussi la bande teaser de l'accueil)
     projectAustralia: {
       breadcrumbAriaLabel: "Fil d'ariane",
       breadcrumbProjects: "Projets",
@@ -176,13 +222,43 @@ export const content = {
       mapCaption: "TOULOUSE → AUSTRALIE · ≈ 17 000 KM",
       clockOriginLabel: "TOULOUSE",
       clockDestinationLabel: "SYDNEY",
+      // Label au-dessus du grand compte à rebours, partie "Le projet"
+      countdownLabel: "Départ dans",
       ctaView: "Voir le projet",
       emptyNote:
         "D'autres projets viendront s'écrire ici — certains depuis l'Australie.",
+
+      // Passer à true le jour du départ pour révéler le Chapitre 02. Penser
+      // à faire évoluer `status` ci-dessus vers "Projet nº 01 — en cours —
+      // Australie" au même moment.
+      chapter2Unlocked: false,
+
+      sections: {
+        project: {
+          title: "Le projet",
+        },
+        chapter1: {
+          title: "Chapitre 01 — La préparation",
+          intro:
+            "Obtenir le Working Holiday Visa, construire le budget, organiser le départ : la phase en cours. Chaque étape franchie s'allume ci-dessous.",
+        },
+        chapter2: {
+          title: "Chapitre 02 — La vie en Australie",
+          lockedLabel: "Ce chapitre s'ouvre en octobre 2026",
+          lockedText:
+            "Carnet de bord, premiers jobs, progression en anglais : la suite s'écrira sur place.",
+          // Affiché une fois chapter2Unlocked passé à true — à enrichir de
+          // vraies entrées de carnet de bord le moment venu.
+          unlockedIntro: "Le carnet de bord commence ici.",
+          // Emplacement pour les futures entrées de carnet de bord (dates,
+          // anecdotes, jobs trouvés sur place...) :
+          // entries: [],
+        },
+      },
     },
     contact: {
       title: "Un stage, un projet, une question ?",
-      text: "Le plus simple, c'est un mail. Je réponds vite.",
+      text: "Le plus simple, c'est un message. Je réponds vite.",
       email: "fortloan.08@gmail.com",
       phone: "06 44 84 38 77",
       phoneHref: "tel:+33644843877",
@@ -211,21 +287,26 @@ export const content = {
     },
     home: {
       eyebrow: "Portfolio — Toulouse, France",
-      titleLine1: "Traveller",
+      // Ajouter ou retirer des mots librement
+      rotatingWords: {
+        words: ["Traveller", "Developer", "Basketball player", "Polyglot", "Explorer"],
+        srLabel: "Traveller, developer, basketball player — in the making.",
+      },
       titleLine2: "in the making.",
       intro:
-        "A 17-year-old high-school graduate from Toulouse — French Baccalauréat, majors in Maths and Computer Science (NSI). Drawn to the world above all: in October 2026, I take off for a year in Australia. In between, I play regional-league basketball and build my first web projects.",
+        "A 17-year-old French graduate from Toulouse — Baccalauréat with majors in Maths and Computer Science. Ten years of competitive basketball taught me discipline, teamwork and perseverance. I arrive in Australia in October 2026 on a Working Holiday Visa, ready to work.",
       ctaPrimary: "My story",
       ctaSecondary: "Get in touch",
-      monogram: {
+      portrait: {
         initials: "LF",
+        alt: "Portrait of Loan Fort",
+        line1: "LOAN FORT",
         number: "Nº 08",
-        lines: ["TRAVELLER", "TOULOUSE, FRANCE", "EST. 2008"],
-        footerText: "Next stop — ",
-        footerHighlight: "Australia",
+        availabilityPrefix: "Available — ",
+        availabilityHighlight: "Australia",
+        availabilitySuffix: ", October 2026",
       },
       countdown: {
-        title: "Departure for Australia",
         labels: {
           days: "Days",
           hours: "Hours",
@@ -236,31 +317,67 @@ export const content = {
         arrivedMessage: "The Australian adventure has begun.",
       },
       project: {
-        eyebrow: "Ongoing project — Nº 01",
         title: "A year in Australia",
-        cta: "Discover the project",
+        cta: "Discover",
+      },
+      ongoingProject: {
+        sectionTitle: "Ongoing project",
+        dayCountPrefix: "D-",
+        ongoingLabel: "Ongoing",
+      },
+      chapters: {
+        sectionTitle: "Three interests",
+        discoverCta: "Discover my interests",
+        items: [
+          {
+            index: "01",
+            title: "Basketball",
+            summary:
+              "Ten years of practice, regional league today — the school of team spirit, discipline and perseverance.",
+          },
+          {
+            index: "02",
+            title: "Programming",
+            summary:
+              "HTML, CSS, Python: first projects built through the NSI track in high school and self-teaching.",
+          },
+          {
+            index: "03",
+            title: "Travels",
+            summary:
+              "Several countries discovered with my family, and one heading: a year in Australia to learn the world up close.",
+          },
+        ],
+      },
+      finalCta: {
+        eyebrow: "Contact",
+        title: "A project, a question?",
+        button: "Get in touch",
       },
     },
     about: {
       title: "About",
-      tagline: "The world is best learned by going to meet it.",
+      tagline: "The discipline of the court, brought to work.",
       intro:
-        "My name is Loan Fort, I'm 17 and I've just earned my French Baccalauréat, with majors in Maths and Computer Science (NSI), at Lycée Raymond Naves in Toulouse. What defines me best is the urge to discover the world — Australia will be its first great chapter. The rest of my time is shared between basketball and code.",
+        "My name is Loan Fort, I'm 17 and I've just earned my French Baccalauréat, with majors in Maths and Computer Science, at Lycée Raymond Naves in Toulouse. Ten years of competitive basketball taught me discipline, teamwork and perseverance — qualities I bring to my projects and future employers, in France as in Australia, where I arrive in October 2026.",
       interestsTitle: "Interests",
       interests: [
         {
           index: "01",
           title: "Basketball",
+          subject: "basketball",
           text: "I've played basketball for 10 years and currently compete in a regional league (Régionale 2). This experience has taught me teamwork, discipline, and perseverance.",
         },
         {
           index: "02",
           title: "Programming",
+          subject: "programming",
           text: "I'm passionate about software development — I code in HTML, CSS, and Python at an intermediate level, skills built through my NSI specialty at school as well as self-directed learning.",
         },
         {
           index: "03",
           title: "Travel & discovering cultures",
+          subject: "travel",
           text: "I love traveling and discovering new cultures, having visited several countries with my family. I'm now looking to spend a gap year in Australia to improve my English (B2 level), build independence, and experience a rich cultural immersion.",
         },
       ],
@@ -356,13 +473,35 @@ export const content = {
       mapCaption: "TOULOUSE → AUSTRALIA · ≈ 17,000 KM",
       clockOriginLabel: "TOULOUSE",
       clockDestinationLabel: "SYDNEY",
+      countdownLabel: "Departure in",
       ctaView: "View the project",
       emptyNote:
         "More projects will be written here — some of them from Australia.",
+
+      chapter2Unlocked: false,
+
+      sections: {
+        project: {
+          title: "The project",
+        },
+        chapter1: {
+          title: "Chapter 01 — The preparation",
+          intro:
+            "Securing the Working Holiday Visa, building the budget, organising the departure: the phase under way. Each completed step lights up below.",
+        },
+        chapter2: {
+          title: "Chapter 02 — Life in Australia",
+          lockedLabel: "This chapter opens in October 2026",
+          lockedText:
+            "Travel log, first jobs, English progress: the next part will be written over there.",
+          unlockedIntro: "The travel log starts here.",
+          // entries: [],
+        },
+      },
     },
     contact: {
       title: "An internship, a project, a question?",
-      text: "The simplest way is email. I reply quickly.",
+      text: "The simplest way is a message. I reply quickly.",
       email: "fortloan.08@gmail.com",
       phone: "06 44 84 38 77",
       phoneHref: "tel:+33644843877",

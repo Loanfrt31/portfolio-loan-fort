@@ -17,6 +17,7 @@ function ResumeGroup({ entries }) {
           as="div"
           className="resume-entry"
           delay={index * 80}
+          id={entry.domId}
           key={entry.date + entry.title}
         >
           <span className="resume-date">{entry.date}</span>
@@ -49,6 +50,9 @@ function About({ t, aboutTab, setAboutTab }) {
     date: interest.index,
     title: interest.title,
     desc: interest.text,
+    // Ancre stable ciblée depuis les cartes "Trois chapitres" de l'accueil
+    // (voir App.jsx / goToInterest), indépendante de l'ordre d'affichage.
+    domId: `interest-${interest.subject}`,
   }));
 
   const activeIndex = tabs.findIndex((tab) => tab.key === aboutTab);
@@ -88,7 +92,7 @@ function About({ t, aboutTab, setAboutTab }) {
   return (
     <div className="page page-about">
       <header className="page-header">
-        <h1>{about.title}</h1>
+        <h1 className="cursor-halo-target">{about.title}</h1>
         <p className="tagline">{about.tagline}</p>
       </header>
 

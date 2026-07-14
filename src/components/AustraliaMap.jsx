@@ -1,26 +1,49 @@
-// Croquis au trait du contour des côtes de l'Australie (Tasmanie incluse),
-// dessiné à la main en SVG — pas d'image ni de librairie de cartes.
+// Contour des côtes de l'Australie (Tasmanie incluse), issu de données
+// géographiques réelles (Natural Earth / domaine public, world.geo.json),
+// projetées en équirectangulaire corrigé (cos latitude) puis mises à
+// l'échelle dans le viewBox ci-dessous — pas d'image ni de librairie de
+// cartes, uniquement ce path SVG.
 
-// Position du point de destination sur la côte est. Déplacer ce point
-// quand la ville de destination sera choisie.
-const DESTINATION_POINT = { x: 262, y: 172 };
+// Position du point de destination sur la côte est (Sydney). Déplacer ce
+// point (même projection) quand la ville de destination sera choisie.
+const DESTINATION_POINT = { x: 265, y: 178.9 };
 
-// Contour tracé dans le sens horaire à partir de la pointe du Cap York :
-// descente le long du golfe de Carpentarie, Terre d'Arnhem, Kimberley,
-// côte ouest, pointe sud-ouest, grande baie australienne (courbe concave),
-// golfes de Spencer et Saint-Vincent, promontoire de Wilson, côte est
-// jusqu'à Cairns et retour au Cap York.
 const MAINLAND_PATH =
-  "M 210 6 L 218 22 L 208 38 L 188 55 L 165 78 L 172 55 L 158 38 L 138 28 " +
-  "L 122 40 L 112 35 L 98 42 L 85 52 L 75 68 L 62 92 L 52 112 L 45 135 " +
-  "L 44 155 L 48 172 L 52 182 L 60 190 " +
-  "Q 130 152 195 193 " + // grande baie australienne : courbe concave
-  "L 208 208 L 218 200 L 228 210 L 240 222 " + // Fleurieu, Coorong, Wilsons Prom
-  "L 252 205 L 258 192 L 262 172 " +
-  "L 260 155 L 255 138 L 250 122 L 245 105 L 248 90 L 238 75 L 230 62 " +
-  "L 220 48 L 212 32 L 210 18 Z";
+  "M 215.5 32.5 L 217.8 38.2 L 222 35.5 L 224.1 38.6 L 227.2 41.4 L 226.6 44.7 L 227.9 50.9 " +
+  "L 228.9 54.5 L 230.6 55.4 L 232.3 61.6 L 231.7 65.4 L 233.8 70.4 L 240.8 74.2 L 245.4 77.6 " +
+  "L 249.7 80.8 L 248.9 82.5 L 252.6 87.1 L 255.1 95 L 257.7 93.4 L 260.3 96.5 L 261.9 95.4 " +
+  "L 263 103.1 L 267.6 107.6 L 270.6 110.4 L 275.7 116.3 L 277.5 122.1 L 277.7 126.3 L 277.2 130.8 " +
+  "L 280.3 137 L 279.9 143.4 L 278.8 146.8 L 277.1 153.3 L 277.2 157.5 L 275.9 162.7 L 273.1 169.3 " +
+  "L 268.3 172.9 L 265.9 178.5 L 263.7 182.1 L 261.8 188.4 L 259.3 192 L 257.7 197.5 L 256.8 202.5 " +
+  "L 257.2 204.8 L 253.4 207.3 L 246.2 207.6 L 240.2 210.6 L 237.2 213.4 L 233.3 216.5 L 228 213.3 " +
+  "L 224 212 L 225 208.2 L 221.5 209.6 L 215.8 214.9 L 210.2 212.9 L 206.5 211.7 L 202.8 211.2 " +
+  "L 196.5 209.1 L 192.4 204.6 L 191.2 199.1 L 189.6 195.4 L 186.5 192.5 L 180.2 191.6 L 182.4 188.1 " +
+  "L 180.8 182.7 L 177.6 187.7 L 171.9 189 L 175.3 185 L 176.2 180.8 L 178.7 177.2 L 178.2 171.9 " +
+  "L 172.9 178.1 L 168.9 180.5 L 166.4 186.3 L 161.4 183.3 L 161.6 179.5 L 157.5 174.2 L 154.1 171.5 " +
+  "L 155.3 169.8 L 147 165.4 L 142.4 165.2 L 136.2 161.6 L 124.6 162.3 L 116.2 164.9 L 108.9 167.4 " +
+  "L 102.7 166.9 L 95.8 170.6 L 90.2 172.3 L 88.9 176.1 L 86.6 179.1 L 81.1 179.2 L 77 179.9 " +
+  "L 71.3 178.6 L 66.6 179.4 L 62.2 179.7 L 58.3 183.6 L 56.4 183.2 L 53.2 185.3 L 50.1 187.6 " +
+  "L 45.3 187.3 L 41 187.3 L 34.1 182.7 L 30.6 181.3 L 30.8 177.1 L 34 176.1 L 35.1 174.5 L 34.9 171.9 " +
+  "L 35.6 166.8 L 34.9 162.5 L 31.5 155.1 L 30.4 151 L 30.7 146.8 L 28.1 142.1 L 28 139.9 L 25.1 137 " +
+  "L 24.3 131.3 L 20.6 125.6 L 19.7 122.5 L 22.5 125.6 L 20.4 118.9 L 23.6 121 L 25.5 123.8 L 25.4 120.1 " +
+  "L 22.2 114.3 L 21.6 112 L 20 109.9 L 20.8 105.6 L 22.1 103.9 L 23 100.2 L 22.3 96 L 24.9 90.7 " +
+  "L 25.4 96.3 L 28.2 91.3 L 33.4 88.8 L 36.6 85.7 L 41.5 83 L 44.5 82.5 L 46.3 83.4 L 51.4 80.7 " +
+  "L 55.3 79.9 L 56.3 78.3 L 58 77.6 L 61.6 77.8 L 68.4 75.6 L 71.9 72.4 L 73.6 68.5 L 77.4 64.8 " +
+  "L 77.7 61.9 L 77.8 58 L 82.4 51.8 L 85.1 58.1 L 87.8 56.6 L 85.5 53.2 L 87.6 49.6 L 90.4 51.2 " +
+  "L 91.2 45.7 L 94.8 42.1 L 96.3 39.2 L 99.6 38 L 99.7 35.9 L 102.5 36.8 L 102.6 35 L 105.5 33.9 " +
+  "L 108.6 32.9 L 113.4 36.3 L 117 40.6 L 121.1 40.6 L 125.2 41.3 L 123.8 37.3 L 126.9 31.5 L 129.8 29.6 " +
+  "L 128.8 27.8 L 131.6 23.6 L 135.5 21 L 138.9 21.9 L 144.3 20.5 L 144.2 16.8 L 139.4 14.4 L 142.9 13.4 " +
+  "L 147.2 15.2 L 150.6 18.1 L 156.1 20 L 157.9 19.3 L 161.9 21.5 L 165.7 19.4 L 168.2 20.1 L 169.7 18.7 " +
+  "L 172.7 22.3 L 170.9 26.2 L 168.5 29.1 L 166.2 29.3 L 167 32.2 L 165.1 35.9 L 162.8 39.5 L 163.3 41.5 " +
+  "L 168.4 45.5 L 173.4 47.9 L 176.7 50.4 L 181.4 54.7 L 183.2 54.7 L 186.6 56.6 L 187.6 58.8 L 193.8 61.3 " +
+  "L 198.1 58.8 L 199.3 54.9 L 200.7 51.6 L 201.5 47.7 L 203.4 41.9 L 202.5 38.3 L 203 36.2 L 202.2 32.1 " +
+  "L 203.1 26.6 L 204.3 25.1 L 203.3 22.7 L 204.9 18.8 L 206.1 14.8 L 206.3 12.7 L 208.7 10 L 210.5 13.6 " +
+  "L 211 18.1 L 212.6 19 L 212.9 22.1 L 215.2 25.8 L 215.7 29.9 L 215.5 32.5 Z";
 
-const TASMANIA_PATH = "M 210 232 L 222 226 L 235 233 L 238 248 L 228 258 L 215 253 Z";
+const TASMANIA_PATH =
+  "M 227.4 229.3 L 233.6 231.8 L 237.2 230.8 L 242.2 229.4 L 246.1 229.9 L 246.6 238.6 L 244.3 241.1 " +
+  "L 243.7 246.9 L 241.4 244.9 L 236.9 250 L 235.6 249.6 L 231.6 249.4 L 227.6 243.2 L 226.7 238.3 " +
+  "L 223 232 L 223.1 228.7 L 227.4 229.3 Z";
 
 function AustraliaMap({ label }) {
   return (

@@ -27,8 +27,6 @@ function Countdown({ t }) {
 
   return (
     <section className="countdown">
-      <span className="countdown-title">{countdown.title}</span>
-
       {remaining ? (
         <>
           <div className="countdown-row">

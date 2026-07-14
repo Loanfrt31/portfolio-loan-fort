@@ -19,9 +19,14 @@ function Nav({ page, setPage, lang, setLang, t }) {
   const pages = [
     { key: "home", label: t.nav.home },
     { key: "about", label: t.nav.about },
+    // La page dédiée "projectAustralia" est une sous-page de Projets : le
+    // lien Projets reste actif quand on s'y trouve (voir isActive ci-dessous).
     { key: "projects", label: t.nav.projects },
     { key: "contact", label: t.nav.contact },
   ];
+
+  const isActive = (key) =>
+    key === page || (key === "projects" && page === "projectAustralia");
 
   const goTo = (key) => {
     setPage(key);
@@ -69,9 +74,9 @@ function Nav({ page, setPage, lang, setLang, t }) {
               <button
                 type="button"
                 key={p.key}
-                className={`nav-link ${page === p.key ? "active" : ""}`}
+                className={`nav-link ${isActive(p.key) ? "active" : ""}`}
                 onClick={() => goTo(p.key)}
-                aria-current={page === p.key ? "page" : undefined}
+                aria-current={isActive(p.key) ? "page" : undefined}
               >
                 {p.label}
               </button>
@@ -111,9 +116,9 @@ function Nav({ page, setPage, lang, setLang, t }) {
               <button
                 type="button"
                 key={p.key}
-                className={`nav-panel-link ${page === p.key ? "active" : ""}`}
+                className={`nav-panel-link ${isActive(p.key) ? "active" : ""}`}
                 onClick={() => goTo(p.key)}
-                aria-current={page === p.key ? "page" : undefined}
+                aria-current={isActive(p.key) ? "page" : undefined}
               >
                 {p.label}
               </button>

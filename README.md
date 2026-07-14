@@ -38,7 +38,7 @@ src/
   components/
     Nav.jsx               → barre de navigation + menu hamburger mobile
     LangToggle.jsx         → sélecteur de langue FR/EN
-    Monogram.jsx            → la "Plaque monogramme" de la page d'accueil
+    HeroPortrait.jsx        → le portrait dans l'arche de la page d'accueil
     Countdown.jsx            → le compte à rebours avant le départ en Australie
     FigureRow.jsx             → ligne "valeur — précision" (chiffres clés, compétences, langues)
     Tabs.jsx / TabsCarousel.jsx → onglets À propos (rangée desktop / carousel mobile)
@@ -112,6 +112,15 @@ projects: {
 ```
 
 N'oubliez pas d'ajouter la même entrée (traduite) dans `content.en.projects.items`.
+
+## Ajouter le portrait de l'accueil
+
+La composition "portrait dans l'arche" de la page d'accueil affiche
+`public/portrait.png` — un portrait détouré (fond transparent), déjà en noir
+et blanc de préférence (le CSS verrouille le rendu en niveaux de gris dans
+tous les cas). Déposer votre portrait détouré dans `public/portrait.png`
+pour l'activer. En son absence, l'arche et le cartel restent affichés
+normalement, sans image.
 
 ## Ajouter le CV téléchargeable
 

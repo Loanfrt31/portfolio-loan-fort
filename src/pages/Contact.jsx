@@ -6,15 +6,15 @@ function Contact({ t }) {
   return (
     <div className="page page-contact">
       <Reveal as="div" className="contact-card">
-        <h1>{contact.title}</h1>
+        <h1 className="cursor-halo-target">{contact.title}</h1>
         <p>{contact.text}</p>
 
         <div className="contact-methods">
-          <a className="contact-method" href={`mailto:${contact.email}`}>
-            {contact.email}
-          </a>
           <a className="contact-method" href={contact.phoneHref}>
             {contact.phone}
+          </a>
+          <a className="contact-method" href={`mailto:${contact.email}`}>
+            {contact.email}
           </a>
           <a
             className="contact-method"

@@ -16,6 +16,31 @@
   border: 0;
 }
 
+/* Halo de curseur (voir CursorHalo.jsx) : un seul nœud réutilisé pour toute
+   l'app, actif uniquement au survol d'un .cursor-halo-target, rendu derrière
+   le texte (z-index sous celui de <main>). */
+.cursor-halo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  margin-left: -60px;
+  margin-top: -60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(226, 98, 27, 0.18), transparent 70%);
+  filter: blur(24px);
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  will-change: transform;
+}
+
+.cursor-halo.is-active {
+  opacity: 1;
+}
+
 /* ---------- Structure générale ---------- */
 
 main {
@@ -401,12 +426,56 @@ main {
   flex-direction: column;
   align-items: flex-start;
   padding-top: clamp(8px, 2vw, 24px);
+  /* Le titre se dimensionne sur la largeur réelle de cette colonne (voir
+     .hero-title) et non sur celle du viewport : le mot rotatif le plus long
+     ("Basketball player") reste ainsi toujours contenu, quel que soit le
+     ratio de la grille du hero. */
+  container-type: inline-size;
 }
 
 .hero-title {
-  font-size: clamp(46px, 7vw, 80px);
+  font-size: clamp(28px, 9cqw, 80px);
   line-height: 1.05;
   font-weight: 600;
+}
+
+.hero-title-visual {
+  display: block;
+}
+
+/* Réserve la hauteur de ligne en permanence : ni l'écriture/effacement du
+   mot rotatif, ni "en devenir." en dessous, ne provoquent de décalage. */
+.hero-title-rotating {
+  display: inline-block;
+  min-height: 1.05em;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+.hero-title-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  margin-left: 3px;
+  background: var(--accent);
+  vertical-align: middle;
+  animation: cursor-blink 1s ease-in-out infinite;
+}
+
+@keyframes cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title-cursor {
+    display: none;
+  }
 }
 
 .hero-title em {
@@ -439,28 +508,70 @@ main {
   margin-left: auto;
 }
 
-/* Plaque monogramme */
-.monogram {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  box-shadow: 0 30px 60px -24px rgba(26, 23, 18, 0.22);
-  padding: 44px 32px 32px;
+/* Portrait dans l'arche */
+.hero-portrait {
+  /* L'arche garde ses propres proportions (plein cintre classique) ; le
+     portrait, nettement plus étroit, est centré à l'intérieur — l'arche
+     reste bien visible tout autour. */
+  --arch-w: clamp(200px, 17vw, 300px);
+  --arch-h: calc(var(--arch-w) * 1.25);
+  /* 0.8 = largeur maximale calculée géométriquement pour que les coins
+     supérieurs du portrait (rectangle) restent sous le plein cintre
+     (demi-cercle de rayon --arch-w / 2) sans jamais le dépasser. */
+  --portrait-w: calc(var(--arch-w) * 0.8);
+  /* Ratio intrinsèque du fichier portrait.png (566 × 727) */
+  --portrait-h: calc(var(--portrait-w) * 727 / 566);
+
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
 
-.monogram-initials {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 40px;
-  letter-spacing: 0.04em;
+.hero-portrait-frame {
+  position: relative;
+  width: var(--arch-w);
+  height: var(--arch-h);
+}
+
+.hero-portrait-arch {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--arch-h);
+  border: 1px solid var(--line);
+  background: var(--accent-soft);
+  border-radius: calc(var(--arch-w) / 2) calc(var(--arch-w) / 2) 0 0;
+}
+
+.hero-portrait-image {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: var(--portrait-w);
+  aspect-ratio: 566 / 727;
+  object-fit: cover;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 18px 24px rgba(26, 23, 18, 0.18));
+}
+
+.hero-portrait-divider {
+  width: 24px;
+  height: 1px;
+  background: var(--line);
+  margin: 24px 0 20px;
+}
+
+.hero-portrait-name {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--ink);
 }
 
-.monogram-number {
+.hero-portrait-number {
   margin-top: 8px;
   font-family: var(--font-mono);
   font-size: 12px;
@@ -468,57 +579,45 @@ main {
   color: var(--champagne);
 }
 
-.monogram-rule {
-  width: 24px;
-  height: 1px;
-  background: var(--line);
-  margin: 22px 0;
-}
-
-.monogram-lines {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
-
-.monogram-lines li {
-  font-size: 10.5px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
-.monogram-footer {
-  margin-top: 32px;
-  padding-top: 20px;
-  width: 100%;
-  border-top: 1px solid var(--line);
+.hero-portrait-next {
+  margin-top: 10px;
   font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: 0.04em;
+  font-size: 11px;
+  letter-spacing: 0.05em;
   color: var(--ink-soft);
 }
 
-.monogram-footer-highlight {
+.hero-portrait-next-highlight {
   color: var(--accent);
 }
 
-/* Carte "Projet en cours" (accueil) : eyebrow + titre + compte à rebours + CTA */
-.project-teaser {
-  max-width: 720px;
-  margin: 0 auto;
-  text-align: center;
+/* Bande teaser "Projet en cours" (accueil) : statut, titre, J-XX, CTA — sur
+   une seule ligne, toute la bande cliquable. */
+.project-teaser-band {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 32px);
+  width: 100%;
+  text-align: left;
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 12px;
-  box-shadow: 0 30px 60px -24px rgba(26, 23, 18, 0.22);
-  padding: clamp(36px, 6vw, 52px) clamp(24px, 5vw, 40px);
+  border-radius: 10px;
+  box-shadow: 0 16px 32px -22px rgba(26, 23, 18, 0.2);
+  padding: 22px clamp(20px, 4vw, 32px);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.project-teaser-eyebrow {
+.project-teaser-band:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 40px -18px rgba(26, 23, 18, 0.26);
+}
+
+.teaser-band-status {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
   font-family: var(--font-mono);
   font-size: 10.5px;
   letter-spacing: 0.14em;
@@ -526,34 +625,183 @@ main {
   color: var(--ink-soft);
 }
 
-.project-teaser-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  flex-shrink: 0;
+.teaser-band-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--ink);
 }
 
-.project-teaser-title {
-  margin-top: 14px;
-  margin-bottom: 36px;
-  font-size: clamp(20px, 3vw, 24px);
+.teaser-band-days {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--champagne);
+  font-variant-numeric: tabular-nums;
+}
+
+.teaser-band-cta {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.project-teaser-band:hover .cta-arrow {
+  transform: translateX(3px);
+}
+
+/* ---------- Sections d'accueil : "Projet en cours" / "Trois chapitres" / CTA final ---------- */
+
+.home-section {
+  padding: clamp(64px, 9vw, 96px) 0;
+}
+
+/* Petit titre + filet hairline qui court sur le reste de la largeur */
+.home-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: clamp(40px, 6vw, 56px);
+}
+
+.home-section-heading-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.home-section-heading-line {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.chapters-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 32px);
+}
+
+.chapter-card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 20px 40px -24px rgba(26, 23, 18, 0.2);
+  padding: clamp(28px, 4vw, 36px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chapter-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 28px 50px -20px rgba(26, 23, 18, 0.26);
+}
+
+.chapter-index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--champagne);
+}
+
+.chapter-title {
+  margin-top: 10px;
+  font-size: 19px;
   font-weight: 600;
 }
 
-.project-teaser-actions {
-  margin-top: 36px;
+.chapter-summary {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
 }
 
-/* Compte à rebours "Départ pour l'Australie" (bloc interne, sans carte propre) */
-.countdown-title {
+.chapters-cta-row {
+  margin-top: clamp(32px, 5vw, 48px);
+  text-align: center;
+}
+
+/* Bande de clôture pleine largeur : eyebrow + phrase + CTA, jusqu'aux bords
+   de l'écran (se lit comme la fin naturelle de la page, pas un bloc posé).
+   Rendue HORS de .page (voir Home.jsx) : un simple bloc en largeur naturelle
+   suffit donc ici, sans le piège du 100vw qui inclut la barre de scroll. */
+.final-cta-band {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Filigrane "Nº 08" : contour seul (gaufrage discret), parfaitement centré
+   dans la bande — la taille reste modérée pour ne jamais être coupée, même
+   sur les plus petits écrans. */
+.final-cta-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(90px, 20vw, 320px);
+  line-height: 1;
+  color: var(--champagne);
+  opacity: 0.12;
+  -webkit-text-stroke: 1px rgba(198, 161, 91, 0.35);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+@supports (-webkit-text-stroke: 1px black) {
+  .final-cta-watermark {
+    color: transparent;
+    opacity: 1;
+  }
+}
+
+.final-cta-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 90px clamp(20px, 5vw, 48px);
+  text-align: center;
+}
+
+.final-cta-eyebrow {
   display: block;
+  margin-bottom: 20px;
   font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: 0.18em;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-soft);
+}
+
+.final-cta-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(24px, 3.5vw, 34px);
+  color: var(--ink);
   margin-bottom: 32px;
+}
+
+/* La bande touche directement le footer : pas de padding résiduel après elle */
+.page-home {
+  padding-bottom: 0;
 }
 
 .countdown-row {
@@ -1124,6 +1372,126 @@ main {
   color: var(--ink);
 }
 
+/* Sections repliables de la page projet */
+.collapsible-heading {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  margin-bottom: clamp(40px, 6vw, 56px);
+  text-align: left;
+  cursor: pointer;
+}
+
+.collapsible-chevron {
+  flex-shrink: 0;
+  color: var(--ink-soft);
+  transition: transform 0.25s ease;
+}
+
+.collapsible-chevron.is-collapsed {
+  transform: rotate(180deg);
+}
+
+.collapsible-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.collapsible-content.is-open {
+  grid-template-rows: 1fr;
+}
+
+.collapsible-inner {
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.collapsible-content.is-open .collapsible-inner {
+  opacity: 1;
+}
+
+/* Titres des 3 parties de la page projet (réutilise .home-section-heading) */
+.project-chapter-heading {
+  margin-top: clamp(72px, 10vw, 104px);
+}
+
+/* Grand compte à rebours, partie "Le projet" — panneau à étiquette, façon
+   carton d'invitation : fond blanc uni, double filet parallèle. */
+.project-countdown-panel {
+  position: relative;
+  margin-top: clamp(56px, 8vw, 80px);
+  padding: clamp(40px, 6vw, 56px) clamp(24px, 5vw, 40px);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Second filet, 8px à l'intérieur du premier */
+.project-countdown-panel::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.project-countdown-tag {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* Chapitre 01 — texte d'introduction */
+.project-chapter-intro {
+  max-width: 62ch;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: clamp(48px, 7vw, 72px);
+}
+
+/* Chapitre 02 — verrouillé jusqu'au départ */
+.project-chapter2 {
+  max-width: 62ch;
+  transition: opacity 0.3s ease;
+}
+
+.project-chapter2.is-locked {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.project-chapter2-locked-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-bottom: 16px;
+}
+
+.project-chapter2-text {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
 /* ---------- Page Contact ---------- */
 
 .page-contact {
@@ -1232,8 +1600,11 @@ main {
 
   .hero-visual {
     max-width: 420px;
-    margin-left: 0;
-    margin-top: 8px;
+    margin: 8px auto 0;
+  }
+
+  .hero-portrait {
+    --arch-w: min(220px, 56vw);
   }
 
   /* La rangée d'onglets desktop cède la place au carousel de points */
@@ -1328,6 +1699,14 @@ main {
   .project-side {
     margin-top: clamp(32px, 5vw, 48px);
   }
+
+  .chapters-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .final-cta-inner {
+    padding: clamp(56px, 12vw, 80px) clamp(20px, 5vw, 48px);
+  }
 }
 
 /* Change d'onglet instantané sur mobile si mouvement réduit demandé */
@@ -1374,6 +1753,30 @@ main {
     text-align: left;
     white-space: normal;
   }
+
+  /* Bande teaser sur deux lignes : statut + J-XX en haut, titre + CTA en bas */
+  .project-teaser-band {
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+
+  .teaser-band-status {
+    order: 1;
+  }
+
+  .teaser-band-days {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .teaser-band-title {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .teaser-band-cta {
+    order: 4;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1388,5 +1791,14 @@ main {
 
   .countdown-item {
     padding: 0 clamp(10px, 4vw, 20px);
+  }
+}
+
+/* Le mot rotatif le plus long ("Basketball player") doit tenir sur une
+   seule ligne même sur les très petits écrans — on réduit légèrement le
+   titre plutôt que d'autoriser un retour à la ligne pendant l'animation. */
+@media (max-width: 380px) {
+  .hero-title {
+    font-size: 34px;
   }
 }
