@@ -9,6 +9,17 @@ function Contact({ t }) {
         <h1 className="cursor-halo-target">{contact.title}</h1>
         <p>{contact.text}</p>
 
+        <div className="practical-info">
+          <span className="practical-info-title">{contact.practicalInfo.title}</span>
+          {contact.practicalInfo.items.map((item) => (
+            <div className="practical-info-row" key={item.label}>
+              <span className="practical-info-label">{item.label}</span>
+              <span className="practical-info-dots" aria-hidden="true" />
+              <span className="practical-info-value">{item.value}</span>
+            </div>
+          ))}
+        </div>
+
         <div className="contact-methods">
           <a className="contact-method" href={contact.phoneHref}>
             {contact.phone}
@@ -28,7 +39,7 @@ function Contact({ t }) {
 
         <span className="contact-location">{contact.location}</span>
 
-        <a className="btn btn-outline contact-cv" href="/cv-loan-fort.pdf" download>
+        <a className="btn btn-outline contact-cv" href="/cv-loan-fort-en.pdf" download>
           {contact.cvDownload}
         </a>
       </Reveal>

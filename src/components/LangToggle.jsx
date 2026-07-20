@@ -9,19 +9,19 @@ function LangToggle({ lang, setLang, t }) {
     >
       <button
         type="button"
-        className={lang === "fr" ? "active" : ""}
-        onClick={() => setLang("fr")}
-        aria-pressed={lang === "fr"}
-      >
-        {t.nav.langFr}
-      </button>
-      <button
-        type="button"
         className={lang === "en" ? "active" : ""}
         onClick={() => setLang("en")}
         aria-pressed={lang === "en"}
       >
         {t.nav.langEn}
+      </button>
+      <button
+        type="button"
+        className={lang === "fr" ? "active" : ""}
+        onClick={() => setLang("fr")}
+        aria-pressed={lang === "fr"}
+      >
+        {t.nav.langFr}
       </button>
     </div>
   );

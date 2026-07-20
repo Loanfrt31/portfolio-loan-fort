@@ -1,6 +1,7 @@
 import HeroPortrait from "../components/HeroPortrait.jsx";
 import HeroTitle from "../components/HeroTitle.jsx";
 import ProjectTeaserBand from "../components/ProjectTeaserBand.jsx";
+import Watermark from "../components/Watermark.jsx";
 import Reveal from "../components/Reveal.jsx";
 
 function Home({ t, setPage, goToInterest }) {
@@ -47,7 +48,7 @@ function Home({ t, setPage, goToInterest }) {
             {home.chapters.items.map((item, index) => (
               <Reveal as="div" className="chapter-card" delay={index * 80} key={item.title}>
                 <span className="chapter-index">{item.index}</span>
-                <h3 className="chapter-title">{item.title}</h3>
+                <h2 className="chapter-title">{item.title}</h2>
                 <p className="chapter-summary">{item.summary}</p>
               </Reveal>
             ))}
@@ -74,9 +75,7 @@ function Home({ t, setPage, goToInterest }) {
           d'un bord à l'autre de l'écran sans provoquer de débordement
           horizontal — voir .final-cta-band en CSS. */}
       <Reveal as="section" className="final-cta-band">
-        <div className="final-cta-watermark" aria-hidden="true">
-          {home.portrait.number}
-        </div>
+        <Watermark text={home.portrait.number} className="final-cta-watermark" />
         <div className="final-cta-inner">
           <span className="final-cta-eyebrow">{home.finalCta.eyebrow}</span>
           <p className="final-cta-title cursor-halo-target">{home.finalCta.title}</p>

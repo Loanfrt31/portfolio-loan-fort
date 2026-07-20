@@ -130,6 +130,34 @@ button:focus-visible,
   color: var(--ink);
 }
 
+/* Barre de défilement discrète et assortie à la charte. Couleurs répétées en
+   dur (et non via var()) : les variables sont scopées sur #root, hors de
+   portée du <html> auquel s'applique la scrollbar du document. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #e9e5dc transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #e9e5dc;
+  border-radius: 999px;
+  border: 2px solid #fdfcfa;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #c6a15b;
+}
+
 /* Respect de la préférence "mouvement réduit" */
 @media (prefers-reduced-motion: reduce) {
   *,

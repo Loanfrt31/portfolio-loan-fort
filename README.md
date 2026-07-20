@@ -116,17 +116,22 @@ N'oubliez pas d'ajouter la même entrée (traduite) dans `content.en.projects.it
 ## Ajouter le portrait de l'accueil
 
 La composition "portrait dans l'arche" de la page d'accueil affiche
-`public/portrait.png` — un portrait détouré (fond transparent), déjà en noir
-et blanc de préférence (le CSS verrouille le rendu en niveaux de gris dans
-tous les cas). Déposer votre portrait détouré dans `public/portrait.png`
-pour l'activer. En son absence, l'arche et le cartel restent affichés
-normalement, sans image.
+`public/portrait-v2.png` — un portrait détouré (fond transparent). Le cadre
+(arche, débordement de tête, grayscale, ombre d'ancrage, survol) est fixé en
+CSS indépendamment des proportions du fichier : vous pouvez déposer une
+nouvelle photo sous `public/portrait-v2.png` (n'importe quel ratio) sans
+retoucher la mise en scène — `object-fit: cover` s'occupe du cadrage. En
+l'absence du fichier, l'arche et le cartel restent affichés normalement,
+sans image.
+
+Gardez le fichier sous 300 Ko environ pour la performance ; au-delà,
+compressez-le ou convertissez-le en WebP.
 
 ## Ajouter le CV téléchargeable
 
-Le bouton "Télécharger mon CV" de la page Contact pointe vers
-`/cv-loan-fort.pdf`. Déposez votre CV au format PDF dans le dossier
-`public/` sous le nom **`cv-loan-fort.pdf`** pour l'activer.
+Le CV est désormais en anglais uniquement. Le bouton de la page Contact
+pointe vers `/cv-loan-fort-en.pdf`. Déposez le CV anglais sous
+**`public/cv-loan-fort-en.pdf`** pour l'activer.
 
 ## Image de partage (aperçu réseaux sociaux)
 

@@ -31,7 +31,7 @@ export const content = {
       },
       titleLine2: "en devenir.",
       intro:
-        "Bachelier de 17 ans, formé à Toulouse — bac général, spécialités Maths et NSI. Dix ans de basket en compétition m'ont appris la rigueur, l'esprit d'équipe et la persévérance. J'arrive en Australie en octobre 2026 avec un Working Holiday Visa, prêt à travailler.",
+        "Je m'appelle Loan, 18 ans, en Australie avec un Working Holiday Visa — et prêt à commencer immédiatement. Dix ans de basket en compétition m'ont forgé rigueur, fiabilité et esprit d'équipe, et une saison d'entretien paysager pour des propriétés haut de gamme m'a appris ce qu'est une vraie journée de travail. Besoin de quelqu'un de ponctuel qui va au bout des choses ? Parlons-en.",
       ctaPrimary: "Mon histoire",
       ctaSecondary: "Me contacter",
       portrait: {
@@ -40,9 +40,11 @@ export const content = {
         alt: "Portrait de Loan Fort",
         line1: "LOAN FORT",
         number: "Nº 08",
+        // Version intemporelle (reste vraie après l'arrivée en Australie) :
+        // ne pas y remettre de date de départ.
         availabilityPrefix: "Disponible — ",
         availabilityHighlight: "Australie",
-        availabilitySuffix: ", octobre 2026",
+        availabilitySuffix: " · Working Holiday Visa",
       },
       countdown: {
         labels: {
@@ -100,7 +102,9 @@ export const content = {
       title: "À propos",
       tagline: "La discipline du terrain, au service du travail.",
       intro:
-        "Je m'appelle Loan Fort, j'ai 17 ans et je viens d'obtenir mon bac général, spécialités Maths et NSI, au lycée Raymond Naves à Toulouse. Dix ans de basket en compétition m'ont appris la rigueur, l'esprit d'équipe et la persévérance — des qualités que je mets au service de mes projets et de mes futurs employeurs, en France comme en Australie, où j'arrive en octobre 2026.",
+        "Je m'appelle Loan Fort. J'ai 18 ans et je suis en Australie avec un Working Holiday Visa, à la recherche d'un travail de terrain — hospitality, paysagisme, manutention, vente, ou tout poste exigeant. Ce que j'apporte : la rigueur, la ponctualité et l'esprit d'équipe de dix ans de basket en compétition, une vraie expérience d'entretien de jardins de propriétés de luxe à Saint-Barthélemy, et un bac général spécialités Maths et NSI. J'apprends vite, je ne bâcle pas, et je suis là pour travailler.",
+      // Mention d'invitation au swipe (carousel mobile, une fois par session)
+      swipeHint: "Glissez pour naviguer",
       interestsTitle: "Centres d'intérêt",
       interests: [
         {
@@ -162,6 +166,13 @@ export const content = {
           title: "Expériences professionnelles",
           entries: [
             {
+              date: "Juil. – Août 2026",
+              title:
+                "Les Jardiniers de Saint-Barth — Assistant en aménagement paysager et entretien de jardins",
+              place: "CDD · Saint-Barthélemy, sur site",
+              desc: "« Entretien et aménagement d'espaces verts pour des propriétés résidentielles haut de gamme. Taille de haies, tonte, plantation, préparation du sol et nettoyage des sites. Travaux physiques en extérieur dans un environnement tropical ; utilisation en toute sécurité d'outils manuels et électriques. Travail au sein d'une petite équipe avec des plannings quotidiens serrés et des normes de présentation élevées. »",
+            },
+            {
               date: "2024",
               title: "Coper Bee",
               place: "Stage d'observation (Seconde)",
@@ -173,6 +184,17 @@ export const content = {
               place: "Stage d'observation (3ᵉ)",
               desc: "« Premier stage au sein d'une entreprise de services du numérique. J'ai découvert le fonctionnement d'une ESN ainsi que les différents métiers du secteur informatique. »",
             },
+          ],
+        },
+        // Habilitations obligatoires pour travailler en Australie (RSA, White
+        // Card...) — vocabulaire local : "licences & tickets", pas
+        // "certifications" (qui reste le terme pour les diplômes français).
+        // Ajouter chaque habilitation obtenue ici — supprimer la ligne
+        // "À venir" quand la première est ajoutée.
+        licences: {
+          title: "Habilitations australiennes",
+          entries: [
+            { date: "—", title: "RSA · White Card — À venir", pending: true },
           ],
         },
         diplomas: {
@@ -265,10 +287,23 @@ export const content = {
       linkedinLabel: "LinkedIn — Loan Fort",
       linkedinUrl: "https://www.linkedin.com/in/loan-fort",
       location: "Toulouse, France",
-      cvDownload: "Télécharger mon CV",
+      cvDownload: "Télécharger mon CV (anglais)",
+      practicalInfo: {
+        title: "Infos pratiques",
+        items: [
+          { label: "Visa", value: "Working Holiday (en cours d'obtention)" },
+          { label: "Disponibilité", value: "Dès octobre 2026, Australie" },
+          { label: "Mobilité", value: "Permis B" },
+        ],
+      },
     },
     footer: {
       text: (year) => `Conçu et codé par Loan Fort · Toulouse · ${year}`,
+    },
+    notFound: {
+      watermark: "Nº 404",
+      text: "Cette page n'existe pas — le voyage continue ailleurs.",
+      button: "Retour à l'accueil",
     },
   },
 
@@ -294,7 +329,7 @@ export const content = {
       },
       titleLine2: "in the making.",
       intro:
-        "A 17-year-old French graduate from Toulouse — Baccalauréat with majors in Maths and Computer Science. Ten years of competitive basketball taught me discipline, teamwork and perseverance. I arrive in Australia in October 2026 on a Working Holiday Visa, ready to work.",
+        "I'm Loan, 18, in Australia on a Working Holiday Visa — and ready to start right away. Ten years of competitive basketball built my discipline, reliability and team spirit, and a season of landscaping work for high-end properties taught me what a hard day's work looks like. If you need someone who shows up on time and finishes the job, let's talk.",
       ctaPrimary: "My story",
       ctaSecondary: "Get in touch",
       portrait: {
@@ -304,7 +339,7 @@ export const content = {
         number: "Nº 08",
         availabilityPrefix: "Available — ",
         availabilityHighlight: "Australia",
-        availabilitySuffix: ", October 2026",
+        availabilitySuffix: " · Working Holiday Visa",
       },
       countdown: {
         labels: {
@@ -359,7 +394,8 @@ export const content = {
       title: "About",
       tagline: "The discipline of the court, brought to work.",
       intro:
-        "My name is Loan Fort, I'm 17 and I've just earned my French Baccalauréat, with majors in Maths and Computer Science, at Lycée Raymond Naves in Toulouse. Ten years of competitive basketball taught me discipline, teamwork and perseverance — qualities I bring to my projects and future employers, in France as in Australia, where I arrive in October 2026.",
+        "My name is Loan Fort. I'm 18, French, and in Australia on a Working Holiday Visa, looking for hands-on work — hospitality, landscaping, labouring, retail, or anything demanding. What I bring: the discipline, punctuality and team spirit of ten years of competitive basketball, real experience in garden maintenance for luxury properties in Saint-Barthélemy, and a French Baccalauréat with majors in Maths and Computer Science. I learn fast, I don't cut corners, and I'm here to work.",
+      swipeHint: "Swipe to navigate",
       interestsTitle: "Interests",
       interests: [
         {
@@ -421,6 +457,12 @@ export const content = {
           title: "Work experience",
           entries: [
             {
+              date: "Jul – Aug 2026",
+              title: "Les Jardiniers de Saint-Barth — Landscaping & Garden Maintenance Assistant",
+              place: "Fixed-term contract · Saint-Barthélemy, on-site",
+              desc: "\"Maintenance and landscaping of green spaces for high-end residential properties. Hedge trimming, mowing, planting, soil preparation and site clean-up. Physical outdoor work in a tropical environment; safe use of hand and power tools. Working in a small team with tight daily schedules and high presentation standards.\"",
+            },
+            {
               date: "2024",
               title: "Coper Bee",
               place: "Observation internship (Grade 10)",
@@ -432,6 +474,15 @@ export const content = {
               place: "Observation internship (Grade 9)",
               desc: "\"First internship at an IT services company. I discovered how such a company works and the different careers available in the tech sector.\"",
             },
+          ],
+        },
+        // Mandatory Australian work tickets (RSA, White Card...). Add each
+        // one here once earned — remove the "Coming soon" line when the
+        // first entry is added.
+        licences: {
+          title: "Licences & Tickets",
+          entries: [
+            { date: "—", title: "RSA · White Card — Coming soon", pending: true },
           ],
         },
         diplomas: {
@@ -508,10 +559,23 @@ export const content = {
       linkedinLabel: "LinkedIn — Loan Fort",
       linkedinUrl: "https://www.linkedin.com/in/loan-fort",
       location: "Toulouse, France",
-      cvDownload: "Download my CV — French",
+      cvDownload: "Download my CV",
+      practicalInfo: {
+        title: "Practical info",
+        items: [
+          { label: "Visa", value: "Working Holiday (in progress)" },
+          { label: "Availability", value: "From October 2026, Australia" },
+          { label: "Mobility", value: "Driver's licence (B)" },
+        ],
+      },
     },
     footer: {
       text: (year) => `Designed and coded by Loan Fort · Toulouse · ${year}`,
+    },
+    notFound: {
+      watermark: "Nº 404",
+      text: "This page doesn't exist — the journey continues elsewhere.",
+      button: "Back home",
     },
   },
 };

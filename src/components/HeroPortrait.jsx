@@ -17,7 +17,7 @@ function HeroPortrait({ t }) {
         {!imgFailed && (
           <img
             className="hero-portrait-image"
-            src="/portrait.png"
+            src="/portrait-v2.png"
             alt={portrait.alt}
             onError={() => setImgFailed(true)}
           />
