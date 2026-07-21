@@ -2,8 +2,23 @@
 // + libellé actif. Le geste de swipe est géré par le parent (About.jsx) sur
 // le panneau de contenu ; ce composant gère les points, les chevrons (tap)
 // et l'éventuelle mention d'invitation au swipe.
+//
+// Les points sont masqués tant que pointsRevealed est faux : la mention
+// occupe leur emplacement exact (fondu croisé, voir .carousel-dots-zone en
+// CSS) jusqu'au premier geste, qui les révèle définitivement pour la session.
+// La zone points/mention est placée sous la rangée chevrons + libellé, sans
+// décoration propre (pas de filet autour d'elle).
 
-function TabsCarousel({ tabs, activeKey, onChange, label, hint, onHintDismiss }) {
+function TabsCarousel({
+  tabs,
+  activeKey,
+  onChange,
+  label,
+  hintText,
+  hintVisible,
+  pointsRevealed,
+  onFirstGesture,
+}) {
   const activeIndex = tabs.findIndex((tab) => tab.key === activeKey);
   const activeTab = tabs[activeIndex];
   const isFirst = activeIndex === 0;
@@ -24,35 +39,12 @@ function TabsCarousel({ tabs, activeKey, onChange, label, hint, onHintDismiss })
   const goStep = (step) => {
     const nextIndex = activeIndex + step;
     if (nextIndex < 0 || nextIndex >= tabs.length) return;
-    onHintDismiss?.();
+    onFirstGesture?.();
     onChange(tabs[nextIndex].key);
   };
 
   return (
     <div className="tabs-carousel">
-      <div className="carousel-dots" role="tablist" aria-label={label}>
-        {tabs.map((tab, index) => {
-          const isActive = tab.key === activeKey;
-          return (
-            <button
-              type="button"
-              key={tab.key}
-              role="tab"
-              aria-selected={isActive}
-              aria-label={tab.label}
-              aria-controls={`panel-${tab.key}`}
-              tabIndex={isActive ? 0 : -1}
-              className={`carousel-dot ${isActive ? "active" : ""}`}
-              onClick={() => {
-                onHintDismiss?.();
-                onChange(tab.key);
-              }}
-              onKeyDown={(event) => handleKeyDown(event, index)}
-            />
-          );
-        })}
-      </div>
-
       <div className="carousel-label-row">
         <button
           type="button"
@@ -99,13 +91,43 @@ function TabsCarousel({ tabs, activeKey, onChange, label, hint, onHintDismiss })
         </button>
       </div>
 
-      {hint && (
-        <p className="carousel-swipe-hint" aria-hidden="true">
+      <div className="carousel-dots-zone">
+        <div
+          className={`carousel-dots ${pointsRevealed ? "is-visible" : ""}`}
+          role="tablist"
+          aria-label={label}
+        >
+          {tabs.map((tab, index) => {
+            const isActive = tab.key === activeKey;
+            return (
+              <button
+                type="button"
+                key={tab.key}
+                role="tab"
+                aria-selected={isActive}
+                aria-label={tab.label}
+                aria-controls={`panel-${tab.key}`}
+                tabIndex={isActive ? 0 : -1}
+                className={`carousel-dot ${isActive ? "active" : ""}`}
+                onClick={() => {
+                  onFirstGesture?.();
+                  onChange(tab.key);
+                }}
+                onKeyDown={(event) => handleKeyDown(event, index)}
+              />
+            );
+          })}
+        </div>
+
+        <p
+          className={`carousel-swipe-hint ${hintVisible && !pointsRevealed ? "is-visible" : ""}`}
+          aria-hidden="true"
+        >
           <span className="carousel-swipe-hint-arrow">←</span>
-          {hint}
+          {hintText}
           <span className="carousel-swipe-hint-arrow">→</span>
         </p>
-      )}
+      </div>
     </div>
   );
 }

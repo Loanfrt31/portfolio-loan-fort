@@ -103,8 +103,10 @@ export const content = {
       tagline: "La discipline du terrain, au service du travail.",
       intro:
         "Je m'appelle Loan Fort. J'ai 18 ans et je suis en Australie avec un Working Holiday Visa, à la recherche d'un travail de terrain — hospitality, paysagisme, manutention, vente, ou tout poste exigeant. Ce que j'apporte : la rigueur, la ponctualité et l'esprit d'équipe de dix ans de basket en compétition, une vraie expérience d'entretien de jardins de propriétés de luxe à Saint-Barthélemy, et un bac général spécialités Maths et NSI. J'apprends vite, je ne bâcle pas, et je suis là pour travailler.",
-      // Mention d'invitation au swipe (carousel mobile, une fois par session)
+      // Mention d'invitation au swipe (carousel mobile, rejouée à chaque visite)
       swipeHint: "Glissez pour naviguer",
+      // Label de la section carousel encapsulée (mobile uniquement)
+      exploreLabel: "Explorer",
       interestsTitle: "Centres d'intérêt",
       interests: [
         {
@@ -396,6 +398,7 @@ export const content = {
       intro:
         "My name is Loan Fort. I'm 18, French, and in Australia on a Working Holiday Visa, looking for hands-on work — hospitality, landscaping, labouring, retail, or anything demanding. What I bring: the discipline, punctuality and team spirit of ten years of competitive basketball, real experience in garden maintenance for luxury properties in Saint-Barthélemy, and a French Baccalauréat with majors in Maths and Computer Science. I learn fast, I don't cut corners, and I'm here to work.",
       swipeHint: "Swipe to navigate",
+      exploreLabel: "Explore",
       interestsTitle: "Interests",
       interests: [
         {

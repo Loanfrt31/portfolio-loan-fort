@@ -902,6 +902,13 @@ main {
   display: none;
 }
 
+/* Section encapsulée (fond hachuré) et son label "Explore" : mobile
+   uniquement, voir le breakpoint 820px. Sur desktop, .about-carousel-section
+   n'a aucun style propre (simple conteneur neutre) et le label reste masqué. */
+.about-carousel-section-label {
+  display: none;
+}
+
 .tab-button {
   flex: 0 0 auto;
   font-family: var(--font-mono);
@@ -974,8 +981,13 @@ main {
   }
 }
 
-.tab-panel.is-swipe-hint {
-  animation: tab-enter-h 0.3s ease both, tab-panel-swipe-hint 0.8s ease-in-out 0.5s both;
+/* Portée à un enfant dédié (et non .tab-panel lui-même) : .tab-panel a déjà
+   sa propre animation d'entrée (tab-enter-h), et le déclenchement du hint
+   arrive bien après le montage (voir IntersectionObserver dans About.jsx) —
+   toucher l'"animation" de .tab-panel la relancerait et referait clignoter
+   le contenu déjà affiché. */
+.tab-panel-inner.is-swipe-hint {
+  animation: tab-panel-swipe-hint 0.8s ease-in-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1749,6 +1761,36 @@ main {
     --arch-w: min(220px, 56vw);
   }
 
+  /* Section encapsulée du carousel : fond hachuré (même motif que les slots
+     photo du site), légèrement "posée" sur la page via un débordement latéral
+     (marges négatives compensées par le padding). */
+  .about-carousel-section {
+    position: relative;
+    margin: 0 -16px;
+    padding: 32px 16px 0;
+    border-radius: 16px;
+    background-color: var(--card);
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent 0 8px,
+      rgba(233, 229, 220, 0.3) 8px 9px
+    );
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .about-carousel-section-label {
+    display: block;
+    margin: 0;
+    padding-bottom: 16px;
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
   /* La rangée d'onglets desktop cède la place au carousel de points */
   .tabs-nav-wrapper {
     display: none;
@@ -1760,10 +1802,38 @@ main {
     margin: clamp(32px, 5vw, 48px) 0 0;
   }
 
-  .carousel-dots {
+  /* Les points et la mention "Swipe to navigate" occupent la même zone,
+     superposés (fondu croisé), pour que le geste semble révéler les points
+     à l'emplacement exact du texte. Hauteur réservée en permanence : aucun
+     saut de mise en page, que ce soit l'un, l'autre, ou aucun des deux.
+     Aucune décoration propre (pas de filet) : seule la rangée chevrons/
+     libellé au-dessus garde son filet existant, inchangé. Centrée entre ce
+     filet et celui du contenu en dessous : même valeur de marge que
+     .tab-panel { margin-top }, pour un espace symétrique de part et
+     d'autre de la zone. */
+  .carousel-dots-zone {
+    position: relative;
+    min-height: 16px;
+    margin-top: clamp(40px, 6vw, 56px);
+  }
+
+  .carousel-dots-zone .carousel-dots,
+  .carousel-dots-zone .carousel-swipe-hint {
+    position: absolute;
+    inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .carousel-dots-zone .carousel-dots.is-visible,
+  .carousel-dots-zone .carousel-swipe-hint.is-visible {
+    opacity: 1;
+  }
+
+  .carousel-dots {
     gap: 12px;
   }
 
@@ -1799,7 +1869,6 @@ main {
     align-items: center;
     justify-content: center;
     gap: 2px;
-    margin: 18px 0 0;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--line);
   }
@@ -1809,6 +1878,7 @@ main {
     text-align: center;
     font-family: var(--font-mono);
     font-size: 11.5px;
+    line-height: 1.4;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink);
@@ -1816,6 +1886,7 @@ main {
     text-decoration-color: var(--accent);
     text-decoration-thickness: 2px;
     text-underline-offset: 6px;
+    padding-block: 10px;
   }
 
   /* Chevrons latéraux : navigation évidente en plus du swipe */
@@ -1840,46 +1911,24 @@ main {
     pointer-events: none;
   }
 
-  /* Mention "Glissez pour naviguer" : en position absolue pour ne jamais
-     décaler la mise en page à son apparition/disparition. */
+  /* Mention "Glissez pour naviguer" : superposée aux points (voir
+     .carousel-dots-zone ci-dessus), remplacée par eux au premier geste.
+     pointer-events: none pour ne jamais intercepter un tap destiné à un
+     point encore invisible en dessous. */
   .carousel-swipe-hint {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 12px;
+    pointer-events: none;
     white-space: nowrap;
-    text-align: center;
     font-family: var(--font-mono);
     font-size: 10.5px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    opacity: 0;
-    animation: swipe-hint-fade 4s ease both;
   }
 
   .carousel-swipe-hint-arrow {
     display: inline-block;
     margin: 0 8px;
     color: var(--accent);
-  }
-
-  @keyframes swipe-hint-fade {
-    0% {
-      opacity: 0;
-      transform: translateX(-50%) translateY(-4px);
-    }
-    10% {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    85% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
   }
 
   /* Panneau de contenu : glissement horizontal dans le sens du swipe */
